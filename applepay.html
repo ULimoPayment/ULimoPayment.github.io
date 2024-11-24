@@ -8,12 +8,13 @@
 <script src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js"></script>
 
 <style>
-    body {
-        background-color: rgba(0, 0, 0, 0.333);
-    }
-
     h1 {
         text-align: center;
+        color: white;
+    }
+    h2 {
+        text-align: center;
+        color: white;
     }
 
     apple-pay-button {
@@ -25,14 +26,13 @@
 </style>
 
 <body>
+    <h1>Pay With Apple Pay</h1>
     <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
         <apple-pay-button buttonstyle="black" type="buy"></apple-pay-button>
     </div>
-    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-        <p>
-            Total:
-        </p>
-    </div>
+    <h2>
+        Total:
+    </h2>
 
 </body>
 
