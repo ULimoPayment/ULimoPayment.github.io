@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ULimo Payment</title>
+</head>
+
+<script src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js"></script>
+
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    apple-pay-button {
+        --apple-pay-button-width: 140px;
+        --apple-pay-button-height: 30px;
+        --apple-pay-button-border-radius: 5px;
+        --apple-pay-button-padding: 5px 0px;
+    }
+</style>
+
+<body>
+    <h1>Pay With Apple Pay</h1>
+    <apple-pay-button buttonstyle="black" type="buy" locale="el-GR"></apple-pay-button>
+</body>
+
+
+</html>
