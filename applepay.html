@@ -12,9 +12,24 @@
         text-align: center;
         color: white;
     }
+
     h2 {
         text-align: center;
         color: white;
+    }
+
+    .container {
+        height: 200px;
+        position: relative;
+        border: 3px solid green;
+    }
+
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
     }
 
     apple-pay-button {
@@ -26,15 +41,17 @@
 </style>
 
 <body>
-    <h1>Pay With Apple Pay</h1>
-    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-        <apple-pay-button buttonstyle="black" type="buy"></apple-pay-button>
+    <div class="container">
+        <div class="vertical-center">
+            <h1>Pay With Apple Pay</h1>
+            <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                <apple-pay-button buttonstyle="black" type="buy"></apple-pay-button>
+            </div>
+            <h2>
+                Total:
+            </h2>
+        </div>
     </div>
-    <h2>
-        Total:
-    </h2>
-
 </body>
-
 
 </html>
