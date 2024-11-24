@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 
+<!-- BODY {background:none transparent;} -->
+
 <head>
     <meta charset="utf-8">
     <title>ULimo Payment</title>
@@ -7,7 +9,8 @@
 
 <script src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js"></script>
 
-<style>
+<style type="text/css">
+    
     h1 {
         text-align: center;
         color: white;
@@ -21,15 +24,15 @@
     .container {
         height: 200px;
         position: relative;
-        border: 3px solid green;
     }
-
-    .vertical-center {
+    
+    .center {
         margin: 0;
         position: absolute;
         top: 50%;
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
     }
 
     apple-pay-button {
@@ -42,8 +45,9 @@
 
 <body>
     <div class="container">
-        <div class="vertical-center">
+        <div class="center">
             <h1>Pay With Apple Pay</h1>
+            <apple-pay-button buttonstyle="black" type="buy"></apple-pay-button>
             <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
                 <apple-pay-button buttonstyle="black" type="buy"></apple-pay-button>
             </div>
