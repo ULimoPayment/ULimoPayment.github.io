@@ -13,7 +13,6 @@
         background-position: center;
         background-color: black;
         overflow: hidden;
-        position: fixed;
     }
 
     h1 {
@@ -29,12 +28,12 @@
     }
 
     .container {
-        height: 40%;
+        height: 80vh;
         position: relative;
     }
 
     .center {
-        margin: 0;
+        margin: 70;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -62,24 +61,19 @@
                 Total:
             </h2>
             <button type="button" onclick="myFunction()">Click Me!</button>
-            <script>
-                function myFunction() { 
-                  document.getElementById("demo").innerHTML = "Hello JavaScript!";
-                }
-            </script>
             <script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js"
                 type="text/javascript">
+                    function myFunction() { 
+                        ThunkableWebviewerExtension.postMessage('hello world');
+                    }
                     // when we get a message from the app, display it on the page
                     ThunkableWebviewerExtension.receiveMessage(function (message) {
                         // Do something with your message
                         document.getElementById("demo").innerHTML = "Hello JavaScript!";
                     });
-                    
-                    function myFunction() { 
-                        ThunkableWebviewerExtension.postMessage('hello world');
-                      }
                 </script>
             <noscript>Sorry, your browser does not support JavaScript!</noscript>
+            <p id="demo">This is a demonstration.</p>
         </div>
     </div>
 </body>
