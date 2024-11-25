@@ -59,15 +59,23 @@
             <h2>
                 Total:
             </h2>
+            <button type="button" onclick="myFunction()">Click Me!</button>
+            <script>
+                function myFunction() { 
+                  document.getElementById("demo").innerHTML = "Hello JavaScript!";
+                }
+            </script>
             <script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js"
                 type="text/javascript">
                     // when we get a message from the app, display it on the page
                     ThunkableWebviewerExtension.receiveMessage(function (message) {
                         // Do something with your message
-                        alert(message)
-
-                        ThunkableWebviewerExtension.postMessage('hello world');
+                        document.getElementById("demo").innerHTML = "Hello JavaScript!";
                     });
+                    
+                    function myFunction() { 
+                        ThunkableWebviewerExtension.postMessage('hello world');
+                      }
                 </script>
             <noscript>Sorry, your browser does not support JavaScript!</noscript>
         </div>
