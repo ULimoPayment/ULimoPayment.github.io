@@ -56,17 +56,18 @@
 <body id="body">
     <div class="container">
         <div class="center">
-            <noscript>Sorry, your browser does not support JavaScript!</noscript>  
+            <noscript>Sorry, your browser does not support JavaScript!</noscript>
             <h1 id="header">Apple Pay</h1>
             <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-                <apple-pay-button id="apple-pay-button" onclick="MakeApplePayment();" buttonstyle="white" type="buy"></apple-pay-button>
+                <apple-pay-button id="apple-pay-button" onclick="MakeApplePayment();" buttonstyle="white"
+                    type="buy"></apple-pay-button>
             </div>
             <h2 id="total">Server Error</h2>
             <script type="text/javascript">
                 // when the button is clicked, send a message to the app
-                document.getElementById("body").onload = function() {sendHandshake()};
-                
-                
+                document.getElementById("body").onload = function () { sendHandshake() };
+
+
                 function sendHandshake() {
                     ThunkableWebviewerExtension.postMessage("Total: Unknown");
                 }
@@ -85,8 +86,21 @@
             </label>
             <script type="text/javascript">
                 // when the button is clicked, send a message to the app
-                const appearance = { /* appearance */ }
-                const options = { /* options */ }
+                const appearance = {
+                    theme: 'stripe',
+                    variables: {
+                        borderRadius: '36px',
+                    }
+                }
+                const options = {
+                    buttonHeight: 50,
+                    buttonTheme: {
+                        applePay: 'white-outline'
+                    },
+                    buttonType: {
+                        applePay: 'buy',
+                    }
+                }
                 const elements = stripe.elements({
                     mode: 'payment',
                     amount: 0.01,
@@ -99,18 +113,18 @@
 
 
 
-                document.getElementById("body").onload = function() {CheckApplePayValid()};
+                document.getElementById("body").onload = function () { CheckApplePayValid() };
                 function CheckApplePayValid() {
                     let CMP = canMakePayments();
                     document.getElementById("header").innerHTML = "This Device Can't Use Apple Pay.";
                     document.getElementById("header").style.color = "red";
                 }
-                
+
 
                 function MakeApplePayment() {
-                    
+
                 }
-                
+
                 /*
                 ApplePayPaymentRequest {
                     required sequence <ApplePayMerchantCapability> merchantCapabilities;
