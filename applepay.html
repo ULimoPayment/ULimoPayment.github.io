@@ -64,7 +64,9 @@
             <button type="button" id="messageButton">Click to send a message to the app</button>
             <script type="text/javascript">
                 // when the button is clicked, send a message to the app
-                document.getElementById("messageButton").onclick = function () {
+                document.getElementById("total").addEventListener("load", sendHandshake);
+                
+                function sendHandshake() {
                     ThunkableWebviewerExtension.postMessage("webpage_loaded");
                 }
 
