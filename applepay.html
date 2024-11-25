@@ -68,13 +68,13 @@
                 
                 
                 function sendHandshake() {
-                    ThunkableWebviewerExtension.postMessage("webpage_loaded");
+                    ThunkableWebviewerExtension.postMessage("Total: Unknown");
                 }
 
                 // when we get a message from the app, display it on the page
                 ThunkableWebviewerExtension.receiveMessage(function (message) {
                     let total_str = String(message)
-                    if (str.startsWith("Total")) {
+                    if (total_str.startsWith("Total")) {
                         document.getElementById("total").innerHTML = total_str;
                     }
                 });
