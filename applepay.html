@@ -55,10 +55,10 @@
 <body id="body">
     <div class="container">
         <div class="center">
-            <noscript>Sorry, your browser does not support JavaScript!</noscript>
-            <h1>Apple Pay</h1>
+            <noscript>Sorry, your browser does not support JavaScript!</noscript>  
+            <h1 id="header">Apple Pay</h1>
             <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-                <apple-pay-button buttonstyle="white" type="buy"></apple-pay-button>
+                <apple-pay-button id="apple-pay-button" onclick="MakeApplePayment();" buttonstyle="white" type="buy"></apple-pay-button>
             </div>
             <h2 id="total">Server Error</h2>
             <script type="text/javascript">
@@ -73,22 +73,48 @@
                 ThunkableWebviewerExtension.receiveMessage(function (message) {
                     document.getElementById("total").innerHTML = String(message);
                 });
-
-                // when we get a message from the app that needs a return value
-                // return the string 'fast response' unless the message is
-                // 'slow message'. If the message is 'slow message', wait for
-                // four seconds, then return the string 'slow response'.
-                // The slow response shows how this could work for API calls that
-                // take time to execute.
-                ThunkableWebviewerExtension.receiveMessageWithReturnValue(function (message, callback) {
-                    if (message === 'slow message') {
-                        setTimeout(() => callback('slow response'), 4000);
-                    } else {
-                        callback('fast response');
-                    }
-                });
             </script>
-            <span ></span>
+            <script type="text/javascript">
+                // when the button is clicked, send a message to the app
+                document.getElementById("body").onload = function() {sendHandshake()};
+                function CheckApplePayValid() {
+                    let CMP = canMakePayments();
+                    document.getElementById("header").innerHTML = "This Device Can't Use Apple Pay.";
+                    document.getElementById("header").style.color = "red";
+                }
+                
+
+                function MakeApplePayment() {
+                    ThunkableWebviewerExtension.postMessage("webpage_loaded");
+                }
+                
+                /*
+                ApplePayPaymentRequest {
+                    required sequence <ApplePayMerchantCapability> merchantCapabilities;
+                    required sequence <DOMString> supportedNetworks;
+                    required DOMString countryCode;
+                    sequence <ApplePayContactField> requiredBillingContactFields;
+                    ApplePayPaymentContact billingContact;
+                    sequence <ApplePayContactField> requiredShippingContactFields;
+                    ApplePayPaymentContact shippingContact;
+                    DOMString applicationData;
+                    sequence <DOMString> supportedCountries;
+                    boolean supportsCouponCode;
+                    DOMString couponCode;
+                    ApplePayShippingContactEditingMode shippingContactEditingMode;
+                    required ApplePayLineItem total;
+                    sequence <ApplePayLineItem> lineItems;
+                    required DOMString currencyCode;
+                    ApplePayShippingType shippingType;
+                    sequence <ApplePayShippingMethod> shippingMethods;
+                    sequence <ApplePayPaymentTokenContext> multiTokenContexts;
+                    ApplePayAutomaticReloadPaymentRequest automaticReloadPaymentRequest;
+                    ApplePayRecurringPaymentRequest recurringPaymentRequest;
+                    ApplePayDeferredPaymentRequest deferredPaymentRequest;
+                };
+                */
+            </script>
+            
         </div>
     </div>
 </body>
