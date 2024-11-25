@@ -52,7 +52,7 @@
     }
 </style>
 
-<body>
+<body id="body">
     <div class="container">
         <div class="center">
             <noscript>Sorry, your browser does not support JavaScript!</noscript>
@@ -61,10 +61,9 @@
                 <apple-pay-button buttonstyle="white" type="buy"></apple-pay-button>
             </div>
             <h2 id="total">Server Error</h2>
-            <button type="button" id="messageButton">Click to send a message to the app</button>
             <script type="text/javascript">
                 // when the button is clicked, send a message to the app
-                document.getElementById("total").addEventListener("load", sendHandshake);
+                document.getElementById("body").onload = function() {sendHandshake()};
                 
                 function sendHandshake() {
                     ThunkableWebviewerExtension.postMessage("webpage_loaded");
@@ -72,9 +71,7 @@
 
                 // when we get a message from the app, display it on the page
                 ThunkableWebviewerExtension.receiveMessage(function (message) {
-                    let total_pre_str = "Total: "
-                    let total_result = total_pre_str.concat(" ", String(message));
-                    document.getElementById("total").innerHTML = total_result;
+                    document.getElementById("total").innerHTML = String(message);
                 });
 
                 // when we get a message from the app that needs a return value
