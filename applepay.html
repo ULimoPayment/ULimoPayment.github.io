@@ -60,19 +60,19 @@
             <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
                 <apple-pay-button buttonstyle="white" type="buy"></apple-pay-button>
             </div>
-            <h2>
+            <h2 id="total">
                 Total:
             </h2>
-            <button type="button" id="messageButton">Click to send a message to the app</button>
             <script type="text/javascript">
                 // when the button is clicked, send a message to the app
-                document.getElementById('messageButton').onclick = function () {
-                    ThunkableWebviewerExtension.postMessage('hello world');
+                document.getElementById("messageButton").onload = function () {
+                    ThunkableWebviewerExtension.postMessage("webpage_loaded");
                 }
 
                 // when we get a message from the app, display it on the page
                 ThunkableWebviewerExtension.receiveMessage(function (message) {
-                    document.getElementById('messageDisplay').innerHTML = message;
+                    let total_result = "Total: ".concat(" ", message);
+                    document.getElementById("total").innerHTML = total_result;
                 });
 
                 // when we get a message from the app that needs a return value
@@ -89,7 +89,7 @@
                     }
                 });
             </script>
-            <span id="messageDisplay"></span>
+            <span ></span>
         </div>
     </div>
 </body>
