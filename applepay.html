@@ -79,13 +79,20 @@
                         document.getElementById("total").innerHTML = total_str;
                     }
                 });
-                <!-- Mount the instance within a <label> -->
-                <label>Card
-                    <div id="express-checkout-element"></div>
-                </label>
             </script>
+
+            <!-- Mount the instance within a <label> -->
+            <div id="express-checkout-element">
+            <!-- Express Checkout Element will be inserted here -->
+            </div>
+            <div id="error-message">
+            <!-- Display an error message to your customers here -->
+            </div>
+
             <script type="text/javascript">
                 // when the button is clicked, send a message to the app
+
+                const stripe = Stripe("pk_live_2nYari0BZqmrZXF6KHUotxfV");
                 const appearance = {
                     theme: 'stripe',
                     variables: {
@@ -107,8 +114,79 @@
                     currency: 'usd',
                     appearance,
                 })
+                // Create and mount the Express Checkout Element
                 const expressCheckoutElement = elements.create('expressCheckout', options)
                 expressCheckoutElement.mount('#express-checkout-element')
+                
+                expressCheckoutElement.on('click', (event) => {
+                    const options = {
+                      emailRequired: true,
+                      phoneNumberRequired: true
+                    };
+                    event.resolve(options);
+                  });
+
+                  expressCheckoutElement.on('cancel', () => {
+                    elements.update({amount: 0.01})
+                  });
+
+                  expressCheckoutElement.on('click', (event) => {
+                    const options = {
+                      lineItems: [
+                        {
+                          name: 'Sample item',
+                          amount: 0.01
+                        },
+                        {
+                          name: 'Tax',
+                          amount: 0.01
+                        },
+                        {
+                          name: 'Shipping cost',
+                          amount: 0.01
+                        }
+                      ]
+                    };
+                    event.resolve(options);
+                  });
+
+                  const handleError = (error) => {
+                    const messageContainer = document.querySelector('#error-message');
+                    messageContainer.textContent = error.message;
+                  }
+                  
+                  expressCheckoutElement.on('confirm', async (event) => {
+                    const {error: submitError} = await elements.submit();
+                    if (submitError) {
+                      handleError(submitError);
+                      return;
+                    }
+                  
+                    // Create the PaymentIntent and obtain clientSecret
+                    const res = await fetch('/create-intent', {
+                      method: 'POST',
+                    });
+                    const {client_secret: clientSecret} = await res.json();
+                  
+                    const {error} = await stripe.confirmPayment({
+                      // `elements` instance used to create the Express Checkout Element
+                      elements,
+                      // `clientSecret` from the created PaymentIntent
+                      clientSecret,
+                      confirmParams: {
+                        return_url: 'https://example.com/order/123/complete',
+                      },
+                    });
+                  
+                    if (error) {
+                      // This point is only reached if there's an immediate error when
+                      // confirming the payment. Show the error to your customer (for example, payment details incomplete)
+                      handleError(error);
+                    } else {
+                      // The payment UI automatically closes with a success animation.
+                      // Your customer is redirected to your `return_url`.
+                    }
+                  });
 
 
 
