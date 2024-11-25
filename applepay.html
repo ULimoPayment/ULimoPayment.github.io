@@ -6,6 +6,7 @@
         type="text/javascript"></script>
     <script src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js"></script>
     <meta charset="utf-8">
+    <script src="https://js.stripe.com/v3/"></script>
     <title>ULimo Payment</title>
 </head>
 
@@ -65,18 +66,40 @@
                 // when the button is clicked, send a message to the app
                 document.getElementById("body").onload = function() {sendHandshake()};
                 
+                
                 function sendHandshake() {
                     ThunkableWebviewerExtension.postMessage("webpage_loaded");
                 }
 
                 // when we get a message from the app, display it on the page
                 ThunkableWebviewerExtension.receiveMessage(function (message) {
-                    document.getElementById("total").innerHTML = String(message);
+                    let total_str = String(message)
+                    if (str.startsWith("Total")) {
+                        document.getElementById("total").innerHTML = total_str;
+                    }
                 });
             </script>
+            <!-- Mount the instance within a <label> -->
+            <label>Card
+                <div id="express-checkout-element"></div>
+            </label>
             <script type="text/javascript">
                 // when the button is clicked, send a message to the app
-                document.getElementById("body").onload = function() {sendHandshake()};
+                const appearance = { /* appearance */ }
+                const options = { /* options */ }
+                const elements = stripe.elements({
+                    mode: 'payment',
+                    amount: 0.01,
+                    currency: 'usd',
+                    appearance,
+                })
+                const expressCheckoutElement = elements.create('expressCheckout', options)
+                expressCheckoutElement.mount('#express-checkout-element')
+
+
+
+
+                document.getElementById("body").onload = function() {CheckApplePayValid()};
                 function CheckApplePayValid() {
                     let CMP = canMakePayments();
                     document.getElementById("header").innerHTML = "This Device Can't Use Apple Pay.";
@@ -85,7 +108,7 @@
                 
 
                 function MakeApplePayment() {
-                    ThunkableWebviewerExtension.postMessage("webpage_loaded");
+                    
                 }
                 
                 /*
@@ -114,7 +137,6 @@
                 };
                 */
             </script>
-            <p>test</p>
         </div>
     </div>
 </body>
