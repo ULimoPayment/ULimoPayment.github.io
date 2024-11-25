@@ -1,17 +1,11 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset="utf-8">
     <title>ULimo Payment</title>
 </head>
 
 <script src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js"></script>
-<script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js" type="text/javascript">
-    // when we get a message from the app, display it on the page
-ThunkableWebviewerExtension.receiveMessage(function(message) {
-    // Do something with your message
-    alert(message)
-  });
-</script>
 
 <style type="text/css">
     body {
@@ -34,7 +28,7 @@ ThunkableWebviewerExtension.receiveMessage(function(message) {
         height: 200px;
         position: relative;
     }
-    
+
     .center {
         margin: 0;
         position: absolute;
@@ -63,6 +57,17 @@ ThunkableWebviewerExtension.receiveMessage(function(message) {
             <h2>
                 Total:
             </h2>
+            <script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js"
+                type="text/javascript">
+                    // when we get a message from the app, display it on the page
+                    ThunkableWebviewerExtension.receiveMessage(function (message) {
+                        // Do something with your message
+                        alert(message)
+
+                        ThunkableWebviewerExtension.postMessage('hello world');
+                    });
+                </script>
+                <noscript>Sorry, your browser does not support JavaScript!</noscript>
         </div>
     </div>
 </body>
